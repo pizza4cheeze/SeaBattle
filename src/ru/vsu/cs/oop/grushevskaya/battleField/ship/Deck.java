@@ -1,5 +1,7 @@
 package ru.vsu.cs.oop.grushevskaya.battleField.ship;
 
+import ru.vsu.cs.oop.grushevskaya.Coordinate;
+
 public class Deck {
     private int row;
     private int column;
@@ -18,6 +20,10 @@ public class Deck {
 
     public int getColumn() {
         return column;
+    }
+
+    public DeckStates getState() {
+        return state;
     }
 
     public void setState(DeckStates state) {

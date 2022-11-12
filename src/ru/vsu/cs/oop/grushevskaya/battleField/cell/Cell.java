@@ -4,11 +4,21 @@ public class Cell {
     private int column;
     private int row;
     private boolean shipHere;
+    private CellStates state;
 
     public Cell(int row, int column) {
         this.row = row;
         this.column = column;
         this.shipHere = false;
+        this.state = CellStates.NULL;
+    }
+
+    public void setState(CellStates state) {
+        this.state = state;
+    }
+
+    public CellStates getState() {
+        return state;
     }
 
     public boolean isThereAShip() {
@@ -19,5 +29,6 @@ public class Cell {
         this.column = column;
         this.row = row;
         this.shipHere = shipHere;
+        this.state = CellStates.NULL;
     }
 }
