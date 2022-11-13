@@ -25,6 +25,10 @@ public class Cell {
         return shipHere;
     }
 
+    public void setShipHere(boolean shipHere) {
+        this.shipHere = shipHere;
+    }
+
     public Cell(int column, int row, boolean shipHere) {
         this.column = column;
         this.row = row;

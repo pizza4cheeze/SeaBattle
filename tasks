@@ -41,6 +41,5 @@
 6) зачем я меняю states на вражеском поле если я их потом никак не использую... (прописать замену states вокруг убитого корабля с null на checked кстати)
 7) из за того что игрок не может сразу видеть корабли пока стреляет замена всех states в корабле вообще бессмысленна,
 потому что я просто проверяю DeckStates. печально)
-8) самое печальное:
-Cannot invoke "ru.vsu.cs.oop.grushevskaya.battleField.cell.Cell.isThereAShip()" because "ru.vsu.cs.oop.grushevskaya.battleField.EnemyBattleField.getCells()[i][j]" is null
-(((((((
+
+Убрать shipstates

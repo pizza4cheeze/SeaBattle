@@ -13,7 +13,12 @@ public class Ship {
         return decks;
     }
 
+    public int getHurtCounter() {
+        return hurtCounter;
+    }
+
     public void hitTheShip(Coordinate coordinate) {
+        Deck currDeck = null;
         for (Deck deck : decks) {
             if (deck.getRow() == coordinate.getRow() && deck.getColumn() == coordinate.getColumn()) {
                 deck.setState(DeckStates.HURT);

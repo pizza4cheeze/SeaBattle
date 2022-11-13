@@ -41,9 +41,6 @@ public class Player {
     }
 
     public boolean move(Coordinate coordinate) {
-        if (enemyBattleField.hitBattleField(coordinate)) {
-
-        }
-        return true; // !!
+        return enemyBattleField.hitBattleField(coordinate);
     }
 }

@@ -1,9 +1,7 @@
 package ru.vsu.cs.oop.grushevskaya;
 
 import ru.vsu.cs.oop.grushevskaya.battleField.EnemyBattleField;
-import ru.vsu.cs.oop.grushevskaya.battleField.MyBattleField;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Deck;
-import ru.vsu.cs.oop.grushevskaya.battleField.ship.DeckStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Ship;
 
 import java.util.ArrayList;
@@ -110,17 +108,5 @@ public class GameUtils {
         row = Character.getNumericValue(oneSplitShip.charAt(1));
         
         return new Coordinate(row, column);
-    }
-
-    public static boolean isGameEnded(EnemyBattleField battleField) {
-        int decksCounter = 0;
-        for (Ship ship : battleField.getShips()) {
-            for (Deck deck : ship.getDecks()) {
-                if (deck.getState() == DeckStates.HURT) {
-                    decksCounter++;
-                }
-            }
-        }
-        return decksCounter == 20; // загадочная константа
     }
 }

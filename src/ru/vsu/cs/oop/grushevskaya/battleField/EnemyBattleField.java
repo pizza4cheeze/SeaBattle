@@ -4,26 +4,22 @@ import ru.vsu.cs.oop.grushevskaya.Coordinate;
 import ru.vsu.cs.oop.grushevskaya.battleField.cell.Cell;
 import ru.vsu.cs.oop.grushevskaya.battleField.cell.CellStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Deck;
+import ru.vsu.cs.oop.grushevskaya.battleField.ship.DeckStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Ship;
 
 import java.util.List;
 
-public class EnemyBattleField {
-    private int size = 10;
-    private Cell[][] cells = new Cell[size][size];
-
-    private List<Ship> ships;
-
-    public List<Ship> getShips() {
-        return ships;
+public class EnemyBattleField extends AbstractBattleField {
+    public boolean isEnemyLose() {
+        int hurtDecksCounter = 0;
+        for (Ship ship : ships) {
+            hurtDecksCounter += ship.getHurtCounter();
+        }
+        return hurtDecksCounter == 20;
     }
 
     public EnemyBattleField(List<Ship> ships) {
         this.ships = ships;
-    }
-
-    public Cell[][] getCells() {
-        return cells;
     }
 
     public boolean hitBattleField(Coordinate coordinate) {
@@ -32,6 +28,7 @@ public class EnemyBattleField {
             for (Deck deck : ship.getDecks()) {
                 if (deck.getRow() == coordinate.getRow() && deck.getColumn() == coordinate.getColumn()) {
                     ship.hitTheShip(coordinate);
+                    this.getCells()[coordinate.getRow()][coordinate.getColumn()].setShipHere(true);
                     return true;
                 }
             }
