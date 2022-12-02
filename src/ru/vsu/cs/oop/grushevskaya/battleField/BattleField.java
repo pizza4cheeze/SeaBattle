@@ -14,6 +14,12 @@ public class BattleField {
     protected Cell[][] cells = new Cell[size][size];
     protected List<Ship> ships;
 
+
+    public BattleField(List<Ship> ships) {
+        createEmptyBattleField();
+        arrangeTheShips(ships);
+    }
+
     public BattleField arrangeTheShips(List<Ship> ships) {
         this.ships = ships;
 
@@ -27,9 +33,12 @@ public class BattleField {
         return this;
     }
 
-    public BattleField(List<Ship> ships) {
-        createEmptyBattleField();
-        arrangeTheShips(ships);
+    public void createEmptyBattleField() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                cells[i][j] = new Cell(i, j);
+            }
+        }
     }
 
     public boolean isThereAShip(int row, int column) {
@@ -89,16 +98,13 @@ public class BattleField {
         }
     }
 
-    public void createEmptyBattleField() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                cells[i][j] = new Cell(i, j);
-            }
-        }
-    }
 
     public Cell[][] getCells() {
         return cells;
+    }
+
+    public List<Ship> getShips() {
+        return ships;
     }
 
     public boolean isEnemyLose() {

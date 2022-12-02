@@ -87,17 +87,23 @@ public class Main {
         printEnemyBattleField(enemy, player.getName());
 
         moveHint(player.getName());
-        Coordinate coordinate = GameUtils.getCoordinate(sc.nextLine()); // TODO: поведение бота
+        Coordinate coordinate;
+        System.out.printf("Хотите дать боту сходить за вас? (ну пожалуйста, он очень хочет :3)\n" +
+                "(введите любой символ кроме 34789 если разрешаете и 34789 если хотите сходить сами)\n");
+        if (sc.nextLine() == "34789") {
+            coordinate = GameUtils.getCoordinate(sc.nextLine());
+        } else coordinate = BotGenius.botMove(enemy);// GameUtils.getCoordinate(sc.nextLine());
 
         HitStates resultOfMove = enemy.move(coordinate);
-        // проверка хода // TODO: убрать возможность ударять в одну координату дважды
+        // TODO: убрать возможность ударять в одну координату дважды и ударять в несуществующие точки чтобы прога не падала
+        //  + сделать так чтобы она просила ввести другую координату снова
         if (resultOfMove != HitStates.MISS) {
             System.out.printf("%s, вы попали!\n", player.getName());
         } else {
             System.out.printf("%s, вы не попали!\n", player.getName());
             if (state == GameStates.SECOND_PLAYER_MOTION) {
                 state = GameStates.FIRST_PLAYER_MOTION;
-            } else state = GameStates.SECOND_PLAYER_MOTION; // конец хода
+            } else state = GameStates.SECOND_PLAYER_MOTION; // TODO: добавить возможность сдаться
         }
 
         if (enemy.getBattleField().isEnemyLose()) {

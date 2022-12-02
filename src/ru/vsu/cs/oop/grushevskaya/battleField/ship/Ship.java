@@ -28,6 +28,10 @@ public class Ship {
         return state;
     }
 
+    public int getAliveDecksCounter() {
+        return aliveDecksCounter;
+    }
+
     public ShipStates hitTheShip(Coordinate coordinate) {
         for (Deck deck : decks) {
             if (deck.getRow() == coordinate.getRow() && deck.getColumn() == coordinate.getColumn()) {
