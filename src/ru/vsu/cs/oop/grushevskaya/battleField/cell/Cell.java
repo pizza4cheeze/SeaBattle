@@ -4,6 +4,7 @@ public class Cell {
     private int column;
     private int row;
     private boolean shipHere;
+
     private CellStates state;
 
     public Cell(int row, int column) {
@@ -11,6 +12,17 @@ public class Cell {
         this.column = column;
         this.shipHere = false;
         this.state = CellStates.NULL;
+    }
+
+    public Cell(int column, int row, boolean shipHere) {
+        this.column = column;
+        this.row = row;
+        this.shipHere = shipHere;
+        this.state = CellStates.NULL;
+    }
+
+    public void setShipHere() {
+        this.shipHere = true;
     }
 
     public void setState(CellStates state) {
@@ -23,16 +35,5 @@ public class Cell {
 
     public boolean isThereAShip() {
         return shipHere;
-    }
-
-    public void setShipHere(boolean shipHere) {
-        this.shipHere = shipHere;
-    }
-
-    public Cell(int column, int row, boolean shipHere) {
-        this.column = column;
-        this.row = row;
-        this.shipHere = shipHere;
-        this.state = CellStates.NULL;
     }
 }

@@ -1,17 +1,17 @@
 package ru.vsu.cs.oop.grushevskaya.battleField.ship;
 
-import ru.vsu.cs.oop.grushevskaya.Coordinate;
-
 public class Deck {
     private int row;
     private int column;
 
     private DeckStates state;
+    private EnemyDeckStates enemyState;
 
     public Deck(int row, int column) {
         this.row = row;
         this.column = column;
         this.state = DeckStates.UNHURT;
+        this.enemyState = EnemyDeckStates.INVISIBLE;
     }
 
     public int getRow() {
@@ -22,11 +22,24 @@ public class Deck {
         return column;
     }
 
+    public void setState(DeckStates state) {
+        this.state = state;
+    }
+
     public DeckStates getState() {
         return state;
     }
 
-    public void setState(DeckStates state) {
-        this.state = state;
+    public void setEnemyState(EnemyDeckStates enemyState) {
+        this.enemyState = enemyState;
+    }
+
+    public EnemyDeckStates getEnemyState() {
+        return enemyState;
+    }
+
+    public void hitTheDeck() {
+        this.state = DeckStates.HURT;
+        this.enemyState = EnemyDeckStates.VISIBLE;
     }
 }

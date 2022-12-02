@@ -1,6 +1,5 @@
 package ru.vsu.cs.oop.grushevskaya;
 
-import ru.vsu.cs.oop.grushevskaya.battleField.EnemyBattleField;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Deck;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Ship;
 
