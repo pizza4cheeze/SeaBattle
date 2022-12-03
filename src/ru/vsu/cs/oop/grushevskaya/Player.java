@@ -10,12 +10,12 @@ public class Player {
     private String name;
     private BattleField battleField;
 
-    public Player(String name) {
-        this.name = name;
-    }
 
-    public String getName() {
-        return name;
+    private Strategy strategy;
+
+    public Player(String name, Strategy strategy) {
+        this.name = name;
+        this.strategy = strategy;
     }
 
     public void setBattleField(BattleField battleField) {
@@ -26,6 +26,13 @@ public class Player {
         return battleField;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Strategy getStrategy() {
+        return strategy;
+    }
 
     public void createBattleField (ArrayList<Ship> ships) {
         battleField.arrangeTheShips(ships);

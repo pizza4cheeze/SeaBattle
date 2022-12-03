@@ -7,27 +7,35 @@ import ru.vsu.cs.oop.grushevskaya.battleField.ship.EnemyDeckStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Ship;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        System.out.println("Добро пожаловать в морской бой");
         Scanner sc = new Scanner(System.in);
 
-        // представление
-        System.out.print("""
-                Добро пожаловать в морской бой
-                Игрок 1, введите свое имя
-                """);
-        String player1Name = sc.nextLine();
-        Player firstPlayer = new Player(player1Name);
+        System.out.println("Введите 0, если передаете свою игру боту");
 
-        System.out.print("""
-                Игрок 2, введите свое имя
-                """);
-        String player2Name = sc.nextLine();
-        Player secondPlayer = new Player(player2Name);
+        Player firstPlayer;
+        if (Objects.equals(sc.nextLine(), "0")) {
+            firstPlayer = new Player("Bot1", Strategy.BOT);
+        } else {
+            System.out.println("Игрок 1, введите свое имя");
+            String player1Name = sc.nextLine();
+            firstPlayer = new Player(player1Name, Strategy.PERSON);
+        }
 
-        GameStates state = GameStates.COLLOCATION;
+        System.out.printf("%s, ведите 0, если хотите сыграть с ботом\n", firstPlayer.getName());
+
+        Player secondPlayer;
+        if (Objects.equals(sc.nextLine(), "0")) {
+            secondPlayer = new Player("Bot2", Strategy.BOT);
+        } else {
+            System.out.println("Игрок 2, введите свое имя");
+            String player2Name = sc.nextLine();
+            secondPlayer = new Player(player2Name, Strategy.PERSON);
+        }
 
         arrangeHint(firstPlayer.getName()); // начало работы с игроком 1
 
@@ -36,14 +44,19 @@ public class Main {
 
         printMyBattleField(firstPlayer); // конец работы с игроком 1
 
-        arrangeHint(secondPlayer.getName()); // начало работы с игроком 2
+        if (secondPlayer.getStrategy() == Strategy.PERSON) {
+            arrangeHint(secondPlayer.getName()); // начало работы с игроком 2
 
-        List<Ship> secondPlayerShips = GameUtils.convertStringToShips(sc.nextLine());
-        secondPlayer.setBattleField(new BattleField(secondPlayerShips));
+            List<Ship> secondPlayerShips = GameUtils.convertStringToShips(sc.nextLine());
+            secondPlayer.setBattleField(new BattleField(secondPlayerShips));
 
-        printMyBattleField(secondPlayer); // конец работы с игроком 2
+            printMyBattleField(secondPlayer); // конец работы с игроком 2
+        } else {
+            List<Ship> secondPlayerShips = GameUtils.convertStringToShips("а1-а1, а3-а5, г1-г1, ж1-ж1, к1-к1, в3-г3, з3-з4, б7-в7, б9-д9, и7-и9");
+            secondPlayer.setBattleField(new BattleField(secondPlayerShips));
+        }
 
-        state = GameStates.FIRST_PLAYER_MOTION;
+        GameStates state = GameStates.FIRST_PLAYER_MOTION;
 
         while (state != GameStates.END) {
             if (state == GameStates.FIRST_PLAYER_MOTION) {
@@ -83,16 +96,15 @@ public class Main {
     }
 
     public static GameStates playerMove(Player player, Player enemy, GameStates state) {
-        Scanner sc = new Scanner(System.in);
-        printEnemyBattleField(enemy, player.getName());
-
-        moveHint(player.getName());
         Coordinate coordinate;
-        System.out.printf("Хотите дать боту сходить за вас? (ну пожалуйста, он очень хочет :3)\n" +
-                "(введите любой символ кроме 34789 если разрешаете и 34789 если хотите сходить сами)\n");
-        if (sc.nextLine() == "34789") {
+        if (player.getStrategy() == Strategy.BOT) {
+            coordinate = BotGenius.botMove(enemy); //
+        } else {
+            Scanner sc = new Scanner(System.in);
+            printEnemyBattleField(enemy, player.getName());
+            moveHint(player.getName());
             coordinate = GameUtils.getCoordinate(sc.nextLine());
-        } else coordinate = BotGenius.botMove(enemy);// GameUtils.getCoordinate(sc.nextLine());
+        }
 
         HitStates resultOfMove = enemy.move(coordinate);
         // TODO: убрать возможность ударять в одну координату дважды и ударять в несуществующие точки чтобы прога не падала
