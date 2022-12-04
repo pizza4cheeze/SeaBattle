@@ -5,6 +5,8 @@ import ru.vsu.cs.oop.grushevskaya.battleField.HitStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.cell.CellStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.EnemyDeckStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Ship;
+import ru.vsu.cs.oop.grushevskaya.bot.BotGenius;
+import ru.vsu.cs.oop.grushevskaya.bot.Strategy;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +19,7 @@ public class Main {
 
         System.out.println("Введите 0, если передаете свою игру боту");
 
-        Player firstPlayer;
+        Player firstPlayer; // инициализация игрока 1
         if (Objects.equals(sc.nextLine(), "0")) {
             firstPlayer = new Player("Bot1", Strategy.BOT);
         } else {
@@ -28,7 +30,7 @@ public class Main {
 
         System.out.printf("%s, ведите 0, если хотите сыграть с ботом\n", firstPlayer.getName());
 
-        Player secondPlayer;
+        Player secondPlayer; // инициализация игрока 2
         if (Objects.equals(sc.nextLine(), "0")) {
             secondPlayer = new Player("Bot2", Strategy.BOT);
         } else {
@@ -37,20 +39,20 @@ public class Main {
             secondPlayer = new Player(player2Name, Strategy.PERSON);
         }
 
-        arrangeHint(firstPlayer.getName()); // начало работы с игроком 1
+        arrangeHint(firstPlayer.getName()); // корабли игрока 1
 
         List<Ship> firstPlayerShips = GameUtils.convertStringToShips(sc.nextLine());
         firstPlayer.setBattleField(new BattleField(firstPlayerShips)); // TODO: сделать чтобы программа не падала из за неверно введенной строки кораблей
 
-        printMyBattleField(firstPlayer); // конец работы с игроком 1
+        printMyBattleField(firstPlayer);
 
-        if (secondPlayer.getStrategy() == Strategy.PERSON) {
-            arrangeHint(secondPlayer.getName()); // начало работы с игроком 2
+        if (secondPlayer.getStrategy() == Strategy.PERSON) { // корабли игрока 2
+            arrangeHint(secondPlayer.getName());
 
             List<Ship> secondPlayerShips = GameUtils.convertStringToShips(sc.nextLine());
             secondPlayer.setBattleField(new BattleField(secondPlayerShips));
 
-            printMyBattleField(secondPlayer); // конец работы с игроком 2
+            printMyBattleField(secondPlayer);
         } else {
             List<Ship> secondPlayerShips = GameUtils.convertStringToShips("а1-а1, а3-а5, г1-г1, ж1-ж1, к1-к1, в3-г3, з3-з4, б7-в7, б9-д9, и7-и9");
             secondPlayer.setBattleField(new BattleField(secondPlayerShips));
@@ -97,11 +99,11 @@ public class Main {
 
     public static GameStates playerMove(Player player, Player enemy, GameStates state) {
         Coordinate coordinate;
+        printEnemyBattleField(enemy, player.getName());
         if (player.getStrategy() == Strategy.BOT) {
             coordinate = BotGenius.botMove(enemy); //
         } else {
             Scanner sc = new Scanner(System.in);
-            printEnemyBattleField(enemy, player.getName());
             moveHint(player.getName());
             coordinate = GameUtils.getCoordinate(sc.nextLine());
         }

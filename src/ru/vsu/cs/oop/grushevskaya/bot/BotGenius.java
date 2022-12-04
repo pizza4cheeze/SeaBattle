@@ -1,7 +1,7 @@
-package ru.vsu.cs.oop.grushevskaya;
+package ru.vsu.cs.oop.grushevskaya.bot;
 
-import ru.vsu.cs.oop.grushevskaya.battleField.BattleField;
-import ru.vsu.cs.oop.grushevskaya.battleField.cell.Cell;
+import ru.vsu.cs.oop.grushevskaya.Coordinate;
+import ru.vsu.cs.oop.grushevskaya.Player;
 import ru.vsu.cs.oop.grushevskaya.battleField.cell.CellStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Deck;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.DeckStates;
