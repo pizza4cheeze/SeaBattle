@@ -1,6 +1,6 @@
 package ru.vsu.cs.oop.grushevskaya;
 
-import ru.vsu.cs.oop.grushevskaya.app.PlayerInfo;
+import ru.vsu.cs.oop.grushevskaya.app.introduction.PlayerInfo;
 import ru.vsu.cs.oop.grushevskaya.battleField.BattleField;
 import ru.vsu.cs.oop.grushevskaya.battleField.HitStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Ship;

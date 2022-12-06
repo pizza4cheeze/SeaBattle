@@ -1,6 +1,9 @@
-package ru.vsu.cs.oop.grushevskaya.app;
+package ru.vsu.cs.oop.grushevskaya.app.introduction;
+
+import ru.vsu.cs.oop.grushevskaya.app.introduction.PlayerInfo;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class PlayerInfoForm extends JPanel {
     private final JLabel label;
@@ -8,8 +11,8 @@ public class PlayerInfoForm extends JPanel {
     private final JCheckBox bot = new JCheckBox("Бот");
 
     public PlayerInfoForm(String title) {
-        this.label = new JLabel("Имя игрока" + title);
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        this.label = new JLabel("Имя игрока " + title);
+        setLayout(new GridLayout(3, 1, 0, 8));
 
         add(label);
         add(nameField);

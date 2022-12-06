@@ -1,4 +1,4 @@
-package ru.vsu.cs.oop.grushevskaya.app;
+package ru.vsu.cs.oop.grushevskaya.app.introduction;
 
 public class PlayerInfo {
     private final String name;
