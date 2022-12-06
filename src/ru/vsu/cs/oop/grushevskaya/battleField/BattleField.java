@@ -14,6 +14,9 @@ public class BattleField {
     protected Cell[][] cells = new Cell[size][size];
     protected List<Ship> ships;
 
+    public BattleField() {
+        createEmptyBattleField();
+    }
 
     public BattleField(List<Ship> ships) {
         createEmptyBattleField();

@@ -1,11 +1,12 @@
-package ru.vsu.cs.oop.grushevskaya.app;
+package ru.vsu.cs.oop.grushevskaya.app.introduction;
+
+import ru.vsu.cs.oop.grushevskaya.app.GayFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Introduction extends JPanel {
-    private PlayersInfo playersInfo;
     private final GayFrame frame;
 
     private PlayerInfoForm form1 = new PlayerInfoForm("1");
@@ -13,26 +14,24 @@ public class Introduction extends JPanel {
 
     public Introduction(GayFrame frame) {
         this.frame = frame;
-
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        JPanel formsPanel = new JPanel();
-        JLabel label = new JLabel("Добро пожаловать в морской бой! Пожалуйста, представьтесь");
+
+        JLabel label = new JLabel("Добро пожаловать в морской бой! Пожалуйста, представьтесь"); // текст-подсказка
         label.setAlignmentX(CENTER_ALIGNMENT);
         add(label);
+
+        JPanel formsPanel = new JPanel(); // панель с двумя панелями с двумя полями для инфы об игроках))))))
         formsPanel.add(form1);
         formsPanel.add(form2);
         formsPanel.setLayout(new FlowLayout());
         add(formsPanel);
 
-        JButton button = new JButton();
+        JButton button = new JButton(); // кнопка со слушателем события
         button.setText("Далее");
-
         button.setAlignmentX(CENTER_ALIGNMENT);
-
         button.addActionListener(e -> {
-            frame.melonPult(new PlayersInfo(form1.getInfo(), form2.getInfo()));
+            frame.getPlayersIntroduction(new PlayersInfo(form1.getInfo(), form2.getInfo()));
         });
-
         add(button);
     }
 

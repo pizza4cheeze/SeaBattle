@@ -42,7 +42,7 @@ public class Ship {
         if (aliveDecksCounter == 0) { // обновляю статус корабля
             this.state = ShipStates.KILLED;
         } else if (aliveDecksCounter != decks.size()) {
-            this.state = ShipStates.HURT; // TODO: в чем разница между приписыванием this перед обращением к полю и не приписыванием?
+            this.state = ShipStates.HURT;
         }
         return this.state;
     }

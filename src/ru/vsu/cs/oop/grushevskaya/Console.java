@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Main {
+public class Console {
     public static void main(String[] args) throws Exception {
         System.out.println("Добро пожаловать в морской бой");
         Scanner sc = new Scanner(System.in);
