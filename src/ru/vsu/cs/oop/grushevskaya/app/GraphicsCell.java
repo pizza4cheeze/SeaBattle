@@ -31,11 +31,6 @@ public class GraphicsCell {
         pixelToCoord(indent);
     }
 
-    public void coordToPixel(Dimension indent) {
-        this.screenRow = (int) (row * size + indent.getHeight());
-        this.screenColumn = (int) (column * size + indent.getWidth());
-    }
-
     public void pixelToCoord(Dimension indent) {
         this.row = (int) ((screenRow - indent.getHeight()) / size);
         this.column = (int) ((screenColumn - indent.getWidth()) / size);
