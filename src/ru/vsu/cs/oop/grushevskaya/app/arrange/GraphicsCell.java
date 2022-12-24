@@ -1,12 +1,12 @@
-package ru.vsu.cs.oop.grushevskaya.app;
+package ru.vsu.cs.oop.grushevskaya.app.arrange;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class GraphicsCell {
-    int size;
-    int row, column;
-    int screenRow, screenColumn;
+    private final int row;
+    private  final int column;
+    private final int screenRow;
+    private final int screenColumn;
 
     public int getRow() {
         return row;
@@ -25,14 +25,9 @@ public class GraphicsCell {
     }
 
     public GraphicsCell(int size, int screenRow, int screenColumn, Dimension indent) {
-        this.size = size;
         this.screenRow = screenRow;
         this.screenColumn = screenColumn;
-        pixelToCoord(indent);
-    }
-
-    public void pixelToCoord(Dimension indent) {
-        this.row = (int) ((screenRow - indent.getHeight()) / size);
-        this.column = (int) ((screenColumn - indent.getWidth()) / size);
+        this.row = (int) ((this.screenRow - indent.getHeight()) / size);
+        this.column = (int) ((this.screenColumn - indent.getWidth()) / size);
     }
 }

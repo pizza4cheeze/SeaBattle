@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class BotGenius { // вообще я так и играю
     public static Coordinate botMove(Player enemy) {
-        for (Ship ship : enemy.getBattleField().getShips()) { // TODO: хочется убрать громоздкое нахождение cells, ships и decks, но я забыла хоткей....
+        for (Ship ship : enemy.getBattleField().getShips()) {
             if (ship.getState() == ShipStates.HURT) {
                 if (ship.getDecks().size() - ship.getAliveDecksCounter() == 1) {
                     for (Deck deck : ship.getDecks()) {

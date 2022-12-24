@@ -1,7 +1,5 @@
 package ru.vsu.cs.oop.grushevskaya.app.introduction;
 
-import ru.vsu.cs.oop.grushevskaya.app.introduction.PlayerInfo;
-
 import javax.swing.*;
 import java.awt.*;
 
