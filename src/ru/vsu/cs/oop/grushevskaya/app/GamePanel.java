@@ -7,6 +7,8 @@ import ru.vsu.cs.oop.grushevskaya.battleField.BattleField;
 import ru.vsu.cs.oop.grushevskaya.battleField.HitStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.cell.CellStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.EnemyDeckStates;
+import ru.vsu.cs.oop.grushevskaya.bot.BotGenius;
+import ru.vsu.cs.oop.grushevskaya.bot.Strategy;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -103,6 +105,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
         g2d.setColor(Color.CYAN);
         g2d.drawRect((int) currBattleFieldIndent.getWidth(), (int) currBattleFieldIndent.getHeight(), battleFieldSize, battleFieldSize);
+        System.out.println(currBattleFieldIndent.getWidth() + " " + currBattleFieldIndent.getHeight());
 
         g.drawImage(bi, 0, 0, null);
         g2d.dispose();
@@ -148,15 +151,16 @@ public class GamePanel extends JPanel implements MouseListener {
                 && e.getY() >= currBattleFieldIndent.getHeight() && e.getY() <= currBattleFieldIndent.getHeight() + battleFieldSize;
     }
 
-    private void playerMove(Player player, Player enemy, Coordinate coordinate) {
+    private boolean playerMove(Player player, Player enemy, Coordinate coordinate) {
         HitStates resultOfMove = enemy.move(coordinate);
         if (resultOfMove == HitStates.MISS) {
             newsAboutMove.setText(String.format("%s, Вы промахнулись. Сейчас ходит %s", player.getName(), enemy.getName()));
             if (state == GameStates.SECOND_PLAYER_MOTION) {
+                System.out.println(2);
                 state = GameStates.FIRST_PLAYER_MOTION;
                 currBattleFieldIndent = indentSecondBattleField;
-                // todo: показывать игрокам на label'е результаты их ходов
             } else if (state == GameStates.FIRST_PLAYER_MOTION) {
+                System.out.println(1);
                 state = GameStates.SECOND_PLAYER_MOTION;
                 currBattleFieldIndent = indentFirstBattleField;
             }
@@ -165,9 +169,13 @@ public class GamePanel extends JPanel implements MouseListener {
         }
 
         if (enemy.getBattleField().isEnemyLose()) {
-            state = GameStates.END; // todo: печатать победителя
+            state = GameStates.END;
             newsAboutMove.setText(String.format("Игра окончена! Победитель - %s", player.getName()));
         }
+        if (resultOfMove != HitStates.MISS) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -175,11 +183,31 @@ public class GamePanel extends JPanel implements MouseListener {
         if (clickInBattleField(e)) {
             if (state == GameStates.FIRST_PLAYER_MOTION) {
                 playerMove(firstPlayer, secondPlayer, pixelToCoord(e.getY(), e.getX(), indentSecondBattleField));
+                if (state == GameStates.SECOND_PLAYER_MOTION && secondPlayer.getStrategy() == Strategy.BOT) {
+                    while (true) {
+                        if (!botMove(secondPlayer, firstPlayer)) {
+                            break;
+                        }
+                    }
+                    state = GameStates.FIRST_PLAYER_MOTION;
+                }
             } else if (state == GameStates.SECOND_PLAYER_MOTION) {
                 playerMove(secondPlayer, firstPlayer, pixelToCoord(e.getY(), e.getX(), indentFirstBattleField));
             }
         }
+    }
+
+    private boolean botMove(Player player, Player enemy) {
+        Coordinate coordinate = BotGenius.botMove(enemy);
+        try {
+            System.out.println("bot start");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        boolean moved = playerMove(player, enemy, coordinate);
         repaint();
+        return moved;
     }
 
     @Override
