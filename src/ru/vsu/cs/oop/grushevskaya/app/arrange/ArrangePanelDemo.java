@@ -92,6 +92,20 @@ public class ArrangePanelDemo extends JPanel implements MouseListener, MouseMoti
     public void mouseMoved(MouseEvent e){
     }
 
+    private boolean checkShips(List<Deck> decksForCheck) {
+        for (Ship ship : ships) {
+            for (Deck deck : ship.getDecks()){
+                for (Deck deckCheck : decksForCheck) {
+                    if (Math.abs(deck.getRow() - deckCheck.getRow()) <= 1 &&
+                            Math.abs(deck.getColumn() - deckCheck.getColumn()) <= 1) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     private void createShip(GraphicsCell[] graphicsCells) {
         int col1 = graphicsCells[0].getColumn();
         int row1 = graphicsCells[0].getRow();
@@ -137,7 +151,9 @@ public class ArrangePanelDemo extends JPanel implements MouseListener, MouseMoti
                     decks.add(new Deck(row1, col1));
                 }
 
-                ships.add(new Ship(decks));
+                if (checkShips(decks)) {
+                    ships.add(new Ship(decks));
+                }
             }
 
         }

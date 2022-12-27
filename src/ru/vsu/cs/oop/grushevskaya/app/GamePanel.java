@@ -105,7 +105,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
         g2d.setColor(Color.CYAN);
         g2d.drawRect((int) currBattleFieldIndent.getWidth(), (int) currBattleFieldIndent.getHeight(), battleFieldSize, battleFieldSize);
-        System.out.println(currBattleFieldIndent.getWidth() + " " + currBattleFieldIndent.getHeight());
+//        System.out.println(currBattleFieldIndent.getWidth() + " " + currBattleFieldIndent.getHeight());
 
         g.drawImage(bi, 0, 0, null);
         g2d.dispose();
@@ -156,11 +156,11 @@ public class GamePanel extends JPanel implements MouseListener {
         if (resultOfMove == HitStates.MISS) {
             newsAboutMove.setText(String.format("%s, Вы промахнулись. Сейчас ходит %s", player.getName(), enemy.getName()));
             if (state == GameStates.SECOND_PLAYER_MOTION) {
-                System.out.println(2);
+//                System.out.println(2);
                 state = GameStates.FIRST_PLAYER_MOTION;
                 currBattleFieldIndent = indentSecondBattleField;
             } else if (state == GameStates.FIRST_PLAYER_MOTION) {
-                System.out.println(1);
+//                System.out.println(1);
                 state = GameStates.SECOND_PLAYER_MOTION;
                 currBattleFieldIndent = indentFirstBattleField;
             }
@@ -200,7 +200,7 @@ public class GamePanel extends JPanel implements MouseListener {
     private boolean botMove(Player player, Player enemy) {
         Coordinate coordinate = BotGenius.botMove(enemy);
         try {
-            System.out.println("bot start");
+//            System.out.println("bot start");
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
