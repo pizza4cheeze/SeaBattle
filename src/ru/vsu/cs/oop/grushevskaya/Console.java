@@ -143,6 +143,7 @@ public class Console {
             }
             System.out.println("|");
         }
+//        System.out.println(enemy.getBattleField().toStr());
     }
 
     public static void moveHint(String name) {

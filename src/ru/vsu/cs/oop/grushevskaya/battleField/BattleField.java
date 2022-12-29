@@ -1,13 +1,18 @@
 package ru.vsu.cs.oop.grushevskaya.battleField;
 
+import com.lezko.simplejson.ArrObj;
+import com.lezko.simplejson.Obj;
 import ru.vsu.cs.oop.grushevskaya.Coordinate;
 import ru.vsu.cs.oop.grushevskaya.battleField.cell.Cell;
 import ru.vsu.cs.oop.grushevskaya.battleField.cell.CellStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Deck;
+import ru.vsu.cs.oop.grushevskaya.battleField.ship.EnemyDeckStates;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.Ship;
 import ru.vsu.cs.oop.grushevskaya.battleField.ship.ShipStates;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BattleField {
     protected int size = 10;
@@ -31,6 +36,7 @@ public class BattleField {
                 int row = s.getDecks().get(i).getRow();
                 int column = s.getDecks().get(i).getColumn();
                 cells[row][column] = new Cell(row, column, true);
+                System.out.println(1);
             }
         }
         return this;
@@ -42,6 +48,40 @@ public class BattleField {
                 cells[i][j] = new Cell(i, j);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        Obj arr = new ArrObj();
+        for (int row = 0; row < size; row++) {
+            Obj rowObj = new ArrObj();
+            for (int col = 0; col < size; col++) {
+                if (isThereAShip(row, col)) {
+                    rowObj.append("ship");
+                } else rowObj.append("null");
+            }
+            arr.append(rowObj);
+        }
+        return arr.toString();
+    } //todo: ass ass ass ass ass
+    // [[а0, б0]]
+    // [[б1, б2]]
+
+    public String toShipsString() {
+        Obj arrObj = new ArrObj();
+        for (Ship ship : ships) {
+            arrObj.append(ship.toString());
+        }
+        return arrObj.toString();
+    }
+
+    public static BattleField fromShipString(String shipsString) {
+        Obj obj = Obj.fromString(shipsString);
+        List<Ship> ships = new ArrayList<>();
+        for (Obj shipObj : obj.toList()) {
+            ships.add(Ship.fromString(shipObj.toString()));
+        }
+        return new BattleField(ships);
     }
 
     public boolean isThereAShip(int row, int column) {

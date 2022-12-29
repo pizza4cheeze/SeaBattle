@@ -21,6 +21,10 @@ public class Cell {
         this.state = CellStates.NULL;
     }
 
+    public String stateToStr() {
+        return state.toString();
+    }
+
     public void setShipHere() {
         this.shipHere = true;
     }

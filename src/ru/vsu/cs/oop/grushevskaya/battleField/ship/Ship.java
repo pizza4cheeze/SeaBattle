@@ -1,8 +1,13 @@
 package ru.vsu.cs.oop.grushevskaya.battleField.ship;
 
+import com.lezko.simplejson.ArrObj;
+import com.lezko.simplejson.Obj;
 import ru.vsu.cs.oop.grushevskaya.Coordinate;
+import ru.vsu.cs.oop.grushevskaya.GameUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Ship {
     private List<Deck> decks;
@@ -14,6 +19,25 @@ public class Ship {
         this.decks = decks;
         this.aliveDecksCounter = decks.size();
         this.state = ShipStates.UNTAPPED;
+    }
+
+    @Override
+    public String toString() {
+        Obj arrObj = new ArrObj();
+        for (Deck deck : decks) {
+            arrObj.append(deck.getRow() + "" + deck.getColumn());
+        }
+        return arrObj.toString();
+    }
+
+    public static Ship fromString(String ass) {
+        Obj arr = Obj.fromString(ass);
+        List<Deck> decks = new ArrayList<>();
+        for (Obj coordObj : arr.toList()) {
+            Coordinate coord = GameUtils.getCoordinate(coordObj.toString());
+            decks.add(new Deck(coord.getRow(), coord.getColumn()));
+        }
+        return new Ship(decks);
     }
 
     public List<Deck> getDecks() {

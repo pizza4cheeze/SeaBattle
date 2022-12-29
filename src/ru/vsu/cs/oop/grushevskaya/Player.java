@@ -19,6 +19,12 @@ public class Player {
         this.strategy = strategy;
     }
 
+    public Player(String name, BattleField battleField) {
+        this.name = name;
+        this.battleField = battleField;
+        this.strategy = Strategy.PERSON;
+    }
+
     public Player(PlayerInfo info) {
         this(info.getName(), info.isBot() ? Strategy.BOT : Strategy.PERSON);
     }
